@@ -14,6 +14,8 @@ export class AppComponent {
     { path: '/projects', icon: 'work', label: 'Projects'}
   ];
 
+  index = 0;
+
   constructor(private store: Store<reducers.AppState>) { }
 
   undo() {
@@ -22,5 +24,20 @@ export class AppComponent {
 
   redo() {
     this.store.dispatch({type: 'REDO'});
+  }
+
+  test() {
+    const actions = [
+      { type: '[Client] Select', payload: { id: '1', firstName: 'John', lastName: 'Doe', company: 'Acme, Inc'}},
+      { type: '[Client] Select', payload: { id: '2', firstName: 'Jane', lastName: 'Smith', company: 'Super, Inc'}},
+      { type: '[Client] Select', payload: { id: '1', firstName: 'John', lastName: 'Doe', company: 'Acme, Inc'}},
+      { type: '[Client] Select', payload: { id: '2', firstName: 'Jane', lastName: 'Smith', company: 'Super, Inc'}},
+      { type: '[Client] Select', payload: { id: '1', firstName: 'John', lastName: 'Doe', company: 'Acme, Inc'}},
+      { type: '[Client] Select', payload: { id: '2', firstName: 'Jane', lastName: 'Smith', company: 'Super, Inc'}},
+    ];
+
+    this.store.dispatch(actions[this.index]);
+
+    this.index = this.index < actions.length - 1 ? this.index + 1 : 0;
   }
 }

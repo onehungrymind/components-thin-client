@@ -21,27 +21,8 @@ export class ClientsComponent implements OnInit {
 
   ngOnInit() {
     this.store.dispatch(new ClientActions.LoadAction());
-
     this.resetCurrentClient();
   }
-
-  /* THIS IS A TEST
-  index = 0;
-  test() {
-    const actions = [
-      { type: '[Client] Select', payload: { id: '1', firstName: 'John', lastName: 'Doe', company: 'Acme, Inc'}},
-      { type: '[Client] Select', payload: { id: '2', firstName: 'Jane', lastName: 'Smith', company: 'Super, Inc'}},
-      { type: '[Client] Select', payload: { id: '1', firstName: 'John', lastName: 'Doe', company: 'Acme, Inc'}},
-      { type: '[Client] Select', payload: { id: '2', firstName: 'Jane', lastName: 'Smith', company: 'Super, Inc'}},
-      { type: '[Client] Select', payload: { id: '1', firstName: 'John', lastName: 'Doe', company: 'Acme, Inc'}},
-      { type: '[Client] Select', payload: { id: '2', firstName: 'Jane', lastName: 'Smith', company: 'Super, Inc'}},
-    ];
-
-    this.store.dispatch(actions[this.index]);
-
-    this.index = this.index < actions.length - 1 ? this.index + 1 : 0;
-  }
-  */
 
   resetCurrentClient() {
     const newClient: Client = { id: null, firstName: '', lastName: '', company: '' };
