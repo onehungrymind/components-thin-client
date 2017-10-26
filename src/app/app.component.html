@@ -21,6 +21,9 @@
   </mat-sidenav>
 
   <div class="app-content">
+    <button mat-button (click)="undo()">UNDO</button>
+    <button mat-button (click)="redo()">REDO</button>
+    <hr>
     <router-outlet></router-outlet>
   </div>
 </mat-sidenav-container>

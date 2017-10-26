@@ -73,7 +73,7 @@ export function undoable(reducer: ActionReducer<any>): ActionReducer<any> {
 }
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
-  ? [logger, storeFreeze]
+  ? [logger, storeFreeze, undoable]
   : [];
 
 // -------------------------------------------------------------------
