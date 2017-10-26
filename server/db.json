@@ -4,20 +4,27 @@
       "id": "1",
       "firstName": "John",
       "lastName": "Doe",
-      "company": "Acme, Inc",
-      "projects": ["1", "2"]
+      "company": "Acme, Inc"
+    },
+    {
+      "id": "2",
+      "firstName": "Jane",
+      "lastName": "Smith",
+      "company": "Super, Inc"
     }
   ],
   "projects": [
     {
       "id": 1,
       "name": "First Project",
-      "description": "Cash cow!"
+      "description": "Cash cow!",
+      "client_id": "1"
     },
     {
       "id": 2,
       "name": "Second Project",
-      "description": "Gravy train!"
+      "description": "Gravy train!",
+      "client_id": "2"
     }
   ]
 }
