@@ -27,6 +27,8 @@ export function logger(reducer: ActionReducer<any>): ActionReducer<any> {
 
 
 export function undoable(reducer: ActionReducer<any>): ActionReducer<any> {
+  console.log('-----------> reducer', reducer)
+
   // Call the reducer with empty action to populate the initial state
   const initialState = {
     past: [],
@@ -73,13 +75,13 @@ export function undoable(reducer: ActionReducer<any>): ActionReducer<any> {
 }
 
 export const metaReducers: MetaReducer<any>[] = !environment.production
-  ? [logger, storeFreeze, undoable]
+  ? [undoable, storeFreeze]
   : [];
 
 // -------------------------------------------------------------------
 // Clients Selectors
 // -------------------------------------------------------------------
-export const getClientsState = (state: AppState) => state.clients;
+export const getClientsState = (state) => state.present.clients;
 export const getClientIds = createSelector(getClientsState, clients.getIds);
 export const getClientEntities = createSelector(getClientsState, clients.getEntities);
 export const getSelectedClient = createSelector(getClientsState, clients.getSelected);
@@ -90,7 +92,7 @@ export const getClients = createSelector(getClientEntities, getClientIds, (entit
 // -------------------------------------------------------------------
 // Projects Selectors
 // -------------------------------------------------------------------
-export const getProjectsState = (state: AppState) => state.projects;
+export const getProjectsState = (state) => state.present.projects;
 export const getProjectIds = createSelector(getProjectsState, projects.getIds);
 export const getProjectEntities = createSelector(getProjectsState, projects.getEntities);
 export const getSelectedProject = createSelector(getProjectsState, projects.getSelected);
