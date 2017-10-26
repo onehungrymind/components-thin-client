@@ -23,6 +23,9 @@ import { reducers, metaReducers } from './shared/reducers';
 import { ClientEffects } from './shared/effects/client.effects';
 import { ProjectEffects } from './shared/effects/projects.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { AngularFireModule } from 'angularfire2';
+import { environment } from '../environments/environment';
+import { AngularFirestoreModule } from 'angularfire2/firestore';
 
 @NgModule({
   declarations: [
@@ -42,6 +45,8 @@ import { StoreDevtoolsModule } from '@ngrx/store-devtools';
     HttpModule,
     AppRoutingModule,
     AppMaterialModule,
+    AngularFireModule.initializeApp(environment.firebase),
+    AngularFirestoreModule,
     StoreModule.forRoot(reducers, { metaReducers }),
     EffectsModule.forRoot([ClientEffects, ProjectEffects]),
     // Note that you must instrument after importing StoreModule
