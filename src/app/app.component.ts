@@ -38,11 +38,20 @@ export class AppComponent {
   constructor(private store: Store<reducers.AppState>, private afs: AngularFirestore) {
     this.remoteActions = afs.collection('actions');
 
+    // REMOTE DISPATCH
     this.remoteActions.valueChanges()
       .skip(1)
       .subscribe((actions: any) => {
         this.store.dispatch(actions[0]);
       });
+
+    /* REMOTE PLAYBACK
+    this.remoteActions.valueChanges()
+      .subscribe((actions: any) => {
+        this.actions = actions;
+        this.cycle();
+      });
+      */
   }
 
   dispatchRemote(action) {
