@@ -1,0 +1,23 @@
+{
+  "clients": [
+    {
+      "id": "1",
+      "firstName": "John",
+      "lastName": "Doe",
+      "company": "Acme, Inc",
+      "projects": ["1", "2"]
+    }
+  ],
+  "projects": [
+    {
+      "id": 1,
+      "name": "First Project",
+      "description": "Cash cow!"
+    },
+    {
+      "id": 2,
+      "name": "Second Project",
+      "description": "Gravy train!"
+    }
+  ]
+}

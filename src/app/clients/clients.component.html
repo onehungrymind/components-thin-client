@@ -1,0 +1,18 @@
+<div class="container">
+  <!-- LIST -->
+  <div class="col-50">
+    <app-clients-list
+      [clients]="clients$ | async"
+      (selected)="setCurrentClient($event)"
+      (deleted)="deleteClient($event)">
+    </app-clients-list>
+  </div>
+  <!-- DETAILS -->
+  <div class="col-50">
+    <app-client-details
+      [client]="currentClient$ | async"
+      (saved)="saveClient($event)"
+      (cancelled)="cancel($event)">
+    </app-client-details>
+  </div>
+</div>

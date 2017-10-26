@@ -1,0 +1,13 @@
+
+mat-card-content {
+  margin-top: 10px;
+  margin-bottom: 0;
+}
+
+mat-card-actions {
+  margin-bottom: 0;
+}
+
+.full-width {
+  width: 100%;
+}
