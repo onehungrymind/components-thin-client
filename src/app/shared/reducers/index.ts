@@ -25,10 +25,8 @@ export function logger(reducer: ActionReducer<any>): ActionReducer<any> {
   };
 }
 
-
+// time travel
 export function undoable(reducer: ActionReducer<any>): ActionReducer<any> {
-  console.log('-----------> reducer', reducer)
-
   // Call the reducer with empty action to populate the initial state
   const initialState = {
     past: [],
