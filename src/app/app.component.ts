@@ -83,7 +83,6 @@ export class AppComponent {
       .zip(Observable.interval(500), (a, b) => a)
     ;
 
-    // result.subscribe((action: any) => console.log('ACTION', action));
     result.subscribe((action: any) => this.store.dispatch(action));
   }
 }
