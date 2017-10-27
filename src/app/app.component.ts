@@ -62,24 +62,14 @@ export class AppComponent {
       */
   }
 
-  dispatchRemote(action) {
-    this.remoteActions.add(JSON.parse(action));
-  }
-
-  undo() {
-    this.store.dispatch({type: 'UNDO'});
-  }
-
-  redo() {
-    this.store.dispatch({type: 'REDO'});
-  }
-
+  // STEP O1: Manual step
   step() {
     this.store.dispatch(this.actions[this.index]);
 
     this.index = this.index < this.actions.length - 1 ? this.index + 1 : 0;
   }
 
+  // STEP O2: Manual cycle
   cycle() {
     const result = Observable
       .from(this.actions)
@@ -89,10 +79,12 @@ export class AppComponent {
     result.subscribe(action => this.store.dispatch(action));
   }
 
+  // STEP O3: Dynamic step
   dispatch(action) {
     this.store.dispatch(JSON.parse(action));
   }
 
+  // STEP O4: Dynamic cycle
   dispatchCycle(rawActions) {
     const actions = JSON.parse(rawActions);
     const result = Observable
@@ -101,5 +93,19 @@ export class AppComponent {
     ;
 
     result.subscribe((action: any) => this.store.dispatch(action));
+  }
+
+  // STEP 05: Remote step
+  dispatchRemote(action) {
+    this.remoteActions.add(JSON.parse(action));
+  }
+
+  // HISTORY
+  undo() {
+    this.store.dispatch({type: 'UNDO'});
+  }
+
+  redo() {
+    this.store.dispatch({type: 'REDO'});
   }
 }
