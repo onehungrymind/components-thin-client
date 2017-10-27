@@ -31,8 +31,16 @@ export class AppComponent {
   ];
 
   index = 0;
+  timerInterval = 500;
   action = '{ "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", "company": "Acme, Inc"}}';
-  rawActions = '[{ "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", 	"company": "Acme, Inc"}},{ "type": "[Client] Select", "payload": { "id": "2", "firstName": "Jane", "lastName": "Smith", 	"company": "Super, Inc"}},{ "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", 	"company": "Acme, Inc"}},{ "type": "[Client] Select", "payload": { "id": "2", "firstName": "Jane", "lastName": "Smith", 	"company": "Super, Inc"}},{ "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", 	"company": "Acme, Inc"}},{ "type": "[Client] Select", "payload": { "id": "2", "firstName": "Jane", "lastName": "Smith", 	"company": "Super, Inc"}}]';
+  rawActions = `[
+    { "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", 	"company": "Acme, Inc"}},
+    { "type": "[Client] Select", "payload": { "id": "2", "firstName": "Jane", "lastName": "Smith", 	"company": "Super, Inc"}},
+    { "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", 	"company": "Acme, Inc"}},
+    { "type": "[Client] Select", "payload": { "id": "2", "firstName": "Jane", "lastName": "Smith", 	"company": "Super, Inc"}},
+    { "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", 	"company": "Acme, Inc"}},
+    { "type": "[Client] Select", "payload": { "id": "2", "firstName": "Jane", "lastName": "Smith", 	"company": "Super, Inc"}}
+  ]`;
   remoteActions: AngularFirestoreCollection<any>;
 
   constructor(private store: Store<reducers.AppState>, private afs: AngularFirestore) {
@@ -75,7 +83,7 @@ export class AppComponent {
   cycle() {
     const result = Observable
       .from(this.actions)
-      .zip(Observable.interval(500), (a, b) => a)
+      .zip(Observable.interval(this.timerInterval), (a, b) => a)
     ;
 
     result.subscribe(action => this.store.dispatch(action));
@@ -89,7 +97,7 @@ export class AppComponent {
     const actions = JSON.parse(rawActions);
     const result = Observable
       .from(actions)
-      .zip(Observable.interval(500), (a, b) => a)
+      .zip(Observable.interval(this.timerInterval), (a, b) => a)
     ;
 
     result.subscribe((action: any) => this.store.dispatch(action));

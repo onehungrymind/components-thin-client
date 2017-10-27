@@ -26,10 +26,28 @@
     <div class="container">
       <div class="col-50">
         <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <h1>STEP 01: Manual Step</h1>
+            </mat-card-title>
+          </mat-card-header>
           <mat-card-content>
-            <button mat-button (click)="undo()">UNDO</button>
-            <button mat-button (click)="redo()">REDO</button>
             <button mat-button (click)="step()">STEP</button>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <h1>STEP 02: Manual Cycle</h1>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <p mat-line>
+              Timer: {{timerInterval / 1000}} Seconds
+            </p>
+            <mat-slider min="100" max="2000" step="100" value="500" thumb-label="true"
+                        [(ngModel)]="timerInterval" class="full-width"></mat-slider>
             <button mat-button (click)="cycle()">CYCLE</button>
           </mat-card-content>
         </mat-card>
@@ -37,7 +55,7 @@
         <mat-card>
           <mat-card-header>
             <mat-card-title>
-              <h1>SINGLE ACTION</h1>
+              <h1>STEP 03: Dynamic Step</h1>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content>
@@ -47,26 +65,55 @@
                        [(ngModel)]="action" type="text" name="action">
               </mat-input-container>
               <button mat-button (click)="dispatch(action)">DISPATCH</button>
-              <button mat-button (click)="dispatchRemote(action)">REMOTE DISPATCH</button>
             </form>
           </mat-card-content>
         </mat-card>
       </div>
+
       <div class="col-50">
         <mat-card>
           <mat-card-header>
             <mat-card-title>
-              <h1>MULTI ACTION</h1>
+              <h1>STEP 04: Dynamic Cycle</h1>
             </mat-card-title>
           </mat-card-header>
           <mat-card-content>
             <form>
               <mat-input-container class="full-width">
-            <textarea matInput placeholder="Actions"
+                <textarea matInput placeholder="Actions" matTextareaAutosize
                       [(ngModel)]="rawActions" type="text" name="actions"></textarea>
               </mat-input-container>
               <button mat-button (click)="dispatchCycle(rawActions)">DISPATCH</button>
             </form>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <h1>STEP 05: Remote Step</h1>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <form>
+              <mat-input-container class="full-width">
+                <input matInput placeholder="Action"
+                       [(ngModel)]="action" type="text" name="action">
+              </mat-input-container>
+              <button mat-button (click)="dispatchRemote(action)">DISPATCH</button>
+            </form>
+          </mat-card-content>
+        </mat-card>
+
+        <mat-card>
+          <mat-card-header>
+            <mat-card-title>
+              <h1>History</h1>
+            </mat-card-title>
+          </mat-card-header>
+          <mat-card-content>
+            <button mat-button (click)="undo()">UNDO</button>
+            <button mat-button (click)="redo()">REDO</button>
           </mat-card-content>
         </mat-card>
       </div>
