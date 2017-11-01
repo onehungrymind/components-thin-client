@@ -1,4 +1,4 @@
-import { Component } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { Store } from '@ngrx/store';
 import * as reducers from './shared/reducers';
 import { Observable } from 'rxjs/Observable';
@@ -14,7 +14,9 @@ import 'rxjs/add/operator/skip';
   templateUrl: './app.component.html',
   styleUrls: ['./app.component.css']
 })
-export class AppComponent {
+export class AppComponent implements OnInit {
+  @ViewChild('editor') editor;
+
   links = [
     {path: '/home', icon: 'home', label: 'Home'},
     {path: '/clients', icon: 'face', label: 'Clients'},
@@ -45,7 +47,9 @@ export class AppComponent {
 
   constructor(private store: Store<reducers.AppState>, private afs: AngularFirestore) {
     this.remoteActions = afs.collection('actions');
+  }
 
+  ngOnInit() {
     // REMOTE DISPATCH
     this.remoteActions.valueChanges()
       .skip(1)
@@ -60,7 +64,19 @@ export class AppComponent {
         this.cycle();
       });
       */
+
+    this.editor.setTheme('monokai');
+
+    this.editor.setMode('json');
+
+    this.editor.getEditor().setOptions({
+      enableBasicAutocompletion: true,
+      showLineNumbers: false,
+      showGutter: false,
+      tabSize: 2
+    });
   }
+
 
   // STEP O1: Manual step
   step() {
