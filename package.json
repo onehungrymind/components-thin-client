@@ -4,8 +4,9 @@
   "license": "MIT",
   "scripts": {
     "ng": "ng",
-    "start": "concurrently \"npm run server\" \"ng serve\"",
+    "start": "concurrently \"npm run socketio\" \"npm run server\" \"ng serve\"",
     "server": "json-server server/db.json --watch",
+    "socketio": "node ./server/server.js",
     "build": "ng build",
     "test": "ng test -sm=false",
     "lint": "ng lint",
