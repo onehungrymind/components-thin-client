@@ -14,19 +14,21 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { ClientDetailsComponent } from './clients/client-details/client-details.component';
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
-import { ClientsService, ProjectsService } from './shared/services/';
+import { ClientsService, ProjectsService, SocketService } from './shared/services/';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
 
+import { environment } from '../environments/environment';
 import { reducers, metaReducers } from './shared/reducers';
 import { ClientEffects } from './shared/effects/client.effects';
 import { ProjectEffects } from './shared/effects/projects.effects';
 import { StoreDevtoolsModule } from '@ngrx/store-devtools';
 import { AngularFireModule } from 'angularfire2';
-import { environment } from '../environments/environment';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AceEditorModule } from 'ng2-ace-editor';
+import { ThinClientComponent } from './clients/thin-client.component';
+import { DemoComponent } from './demo/demo.component';
 
 @NgModule({
   declarations: [
@@ -37,7 +39,9 @@ import { AceEditorModule } from 'ng2-ace-editor';
     ProjectsListComponent,
     ProjectDetailsComponent,
     ClientDetailsComponent,
-    ClientsListComponent
+    ClientsListComponent,
+    ThinClientComponent,
+    DemoComponent
   ],
   imports: [
     BrowserAnimationsModule,
@@ -56,7 +60,7 @@ import { AceEditorModule } from 'ng2-ace-editor';
     }),
     AceEditorModule
   ],
-  providers: [ClientsService, ProjectsService],
+  providers: [ClientsService, ProjectsService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }
