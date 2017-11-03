@@ -14,7 +14,7 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { ClientDetailsComponent } from './clients/client-details/client-details.component';
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
-import { ClientsService, ProjectsService, SocketService } from './shared/services/';
+import { ActionsService, ClientsService, ProjectsService, SocketService } from './shared/services/';
 
 import { StoreModule } from '@ngrx/store';
 import { EffectsModule } from '@ngrx/effects';
@@ -60,7 +60,7 @@ import { DemoComponent } from './demo/demo.component';
     }),
     AceEditorModule
   ],
-  providers: [ClientsService, ProjectsService, SocketService],
+  providers: [ActionsService, ClientsService, ProjectsService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

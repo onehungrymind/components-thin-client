@@ -29,26 +29,23 @@
         <!-- DYNAMIC STEP -->
         <mat-step label="DYNAMIC STEP">
           <h1>STEP 03: Dynamic Step</h1>
-          <mat-input-container class="full-width">
-            <input matInput placeholder="Action"
-                   [(ngModel)]="action" type="text" name="action">
-          </mat-input-container>
+          <ace-editor [(text)]="action" #stepEditor></ace-editor>
+          <button mat-raised-button color="primary" (click)="fetchSingle()">FETCH</button>
           <button mat-raised-button color="primary" (click)="dispatch(action)">DISPATCH</button>
         </mat-step>
         <!-- DYNAMIC CYCLE -->
         <mat-step label="DYNAMIC CYCLE">
           <h1>STEP 04: Dynamic Cycle</h1>
-          <ace-editor [(text)]="rawActions" #editor style="height:150px;"></ace-editor>
+          <ace-editor [(text)]="rawActions" #cycleEditor></ace-editor>
+          <button mat-raised-button color="primary" (click)="fetchAll()">FETCH</button>
           <button mat-raised-button color="primary" (click)="dispatchCycle(rawActions)">DISPATCH</button>
         </mat-step>
         <!-- REMOTE STEP -->
         <mat-step label="REMOTE STEP">
           <h1>STEP 05: Remote Step</h1>
           <form>
-            <mat-input-container class="full-width">
-              <input matInput placeholder="Action"
-                     [(ngModel)]="action" type="text" name="action">
-            </mat-input-container>
+            <ace-editor [(text)]="action" #remoteEditor></ace-editor>
+            <button mat-raised-button color="primary" (click)="fetchSingle()">FETCH</button>
             <button mat-raised-button color="primary" (click)="dispatchRemote(action)">DISPATCH</button>
           </form>
         </mat-step>

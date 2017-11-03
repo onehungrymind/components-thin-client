@@ -3,6 +3,7 @@ import { Store } from '@ngrx/store';
 import * as reducers from '../shared/reducers';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { ActionsService } from '../shared/services/actions.service';
 
 @Component({
   selector: 'app-demo',
@@ -10,7 +11,9 @@ import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/fires
   styleUrls: ['./demo.component.css']
 })
 export class DemoComponent implements OnInit {
-  @ViewChild('editor') editor;
+  @ViewChild('stepEditor') stepEditor;
+  @ViewChild('cycleEditor') cycleEditor;
+  @ViewChild('remoteEditor') remoteEditor;
 
   actions = [
     {type: '[Client] Select', payload: {id: '1', firstName: 'John', lastName: 'Doe', company: 'Acme, Inc'}},
@@ -23,18 +26,15 @@ export class DemoComponent implements OnInit {
 
   index = 0;
   timerInterval = 500;
-  action = '{ "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", "company": "Acme, Inc"}}';
-  rawActions = `[
-    { "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", 	"company": "Acme, Inc"}},
-    { "type": "[Client] Select", "payload": { "id": "2", "firstName": "Jane", "lastName": "Smith", 	"company": "Super, Inc"}},
-    { "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", 	"company": "Acme, Inc"}},
-    { "type": "[Client] Select", "payload": { "id": "2", "firstName": "Jane", "lastName": "Smith", 	"company": "Super, Inc"}},
-    { "type": "[Client] Select", "payload": { "id": "1", "firstName": "John", "lastName": "Doe", 	"company": "Acme, Inc"}},
-    { "type": "[Client] Select", "payload": { "id": "2", "firstName": "Jane", "lastName": "Smith", 	"company": "Super, Inc"}}
-  ]`;
+  action = '';
+  rawActions = '';
   remoteActions: AngularFirestoreCollection<any>;
 
-  constructor(private store: Store<reducers.AppState>, private afs: AngularFirestore) {
+  constructor(
+    private actionsService: ActionsService,
+    private store: Store<reducers.AppState>,
+    private afs: AngularFirestore
+  ) {
     this.remoteActions = afs.collection('actions');
   }
 
@@ -54,18 +54,23 @@ export class DemoComponent implements OnInit {
       });
       */
 
-    this.editor.setTheme('monokai');
+    this.initEditor(this.stepEditor);
+    this.initEditor(this.cycleEditor);
+    this.initEditor(this.remoteEditor);
+  }
 
-    this.editor.setMode('json');
+  initEditor(editor) {
+    editor.setTheme('monokai');
 
-    this.editor.getEditor().setOptions({
+    editor.setMode('json');
+
+    editor.getEditor().setOptions({
       enableBasicAutocompletion: true,
       showLineNumbers: false,
       showGutter: false,
       tabSize: 2
     });
   }
-
 
   // STEP O1: Manual step
   step() {
@@ -91,11 +96,23 @@ export class DemoComponent implements OnInit {
   }
 
   // STEP O3: Dynamic step
+  fetchSingle() {
+    this.actionsService
+      .single()
+      .subscribe(action => this.action = JSON.stringify(action, null , '\t'));
+  }
+
   dispatch(action) {
     this.store.dispatch(JSON.parse(action));
   }
 
   // STEP O4: Dynamic cycle
+  fetchAll() {
+    this.actionsService
+      .all()
+      .subscribe(actions => this.rawActions = JSON.stringify(actions, null , '\t'));
+  }
+
   dispatchCycle(rawActions) {
     const actions = JSON.parse(rawActions);
     const result = Observable

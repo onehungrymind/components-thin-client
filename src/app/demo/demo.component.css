@@ -21,3 +21,9 @@
 :host >>> button {
   margin-left: 3px;
 }
+
+:host >>> ace-editor {
+  height: 300px;
+  margin-bottom: 10px;
+  font-size: 1.5em;
+}
