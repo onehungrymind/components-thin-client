@@ -69,16 +69,22 @@ export class DemoComponent implements OnInit {
 
   // STEP O1: Manual step
   step() {
+    this.index = this.index < this.actions.length - 1 ? this.index + 1 : 0;
     this.store.dispatch(this.actions[this.index]);
 
-    this.index = this.index < this.actions.length - 1 ? this.index + 1 : 0;
   }
 
   // STEP O2: Manual cycle
   cycle() {
+    const that = this;
     const result = Observable
       .from(this.actions)
-      .zip(Observable.interval(this.timerInterval), (a, b) => a)
+      .zip(Observable.interval(this.timerInterval), (a, b) => {
+        // THIS IS NAUGHTY!
+        this.index = b;
+        // THIS IS AWESOME!
+        return a;
+      })
     ;
 
     result.subscribe(action => this.store.dispatch(action));
