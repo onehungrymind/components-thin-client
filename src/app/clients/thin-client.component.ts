@@ -3,7 +3,6 @@ import { SocketService } from '../shared/services/socket.service';
 import { Client } from '../shared/models/client.model';
 import * as ClientActions from '../shared/actions/client.actions';
 import { Observable } from 'rxjs/Observable';
-import { of } from 'rxjs/observable/of';
 
 @Component({
   selector: 'app-thin-client',
@@ -14,17 +13,13 @@ export class ThinClientComponent implements OnInit {
   clients$: Observable<Client[]>;
   currentClient$: Observable<Client>;
 
-  // WE HAVE CHANGED THIS...
-  constructor(private store: SocketService) { }
+  constructor(private store: SocketService) {
+    this.clients$ = this.store.select('clients');
+    this.currentClient$ = this.store.select('currentClient');
+  }
 
   ngOnInit() {
-    // ... AND THIS!
-    this.store.connect()
-      .subscribe((state: any) => {
-        this.clients$ = of(state.clients);
-        this.currentClient$ = of(state.selectedClient);
-      });
-
+    this.store.dispatch(new ClientActions.LoadAction());
     this.resetCurrentClient();
   }
 

@@ -1,9 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Store } from '@ngrx/store';
-import * as reducers from '../shared/reducers';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { ActionsService } from '../shared/services/actions.service';
+import { SocketService } from '../shared/services/socket.service';
 
 @Component({
   selector: 'app-demo',
@@ -32,7 +31,7 @@ export class DemoComponent implements OnInit {
 
   constructor(
     private actionsService: ActionsService,
-    private store: Store<reducers.AppState>,
+    private store: SocketService,
     private afs: AngularFirestore
   ) {
     this.remoteActions = afs.collection('actions');
@@ -65,7 +64,6 @@ export class DemoComponent implements OnInit {
     editor.setMode('json');
 
     editor.getEditor().setOptions({
-      enableBasicAutocompletion: true,
       showLineNumbers: false,
       showGutter: false,
       tabSize: 2

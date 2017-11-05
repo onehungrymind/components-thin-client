@@ -1,9 +1,8 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
 import { Client } from '../shared/models/client.model';
-import * as reducers from '../shared/reducers';
 import * as ClientActions from '../shared/actions/client.actions';
 import { Observable } from 'rxjs/Observable';
+import { SocketService } from '../shared/services/socket.service';
 
 @Component({
   selector: 'app-clients',
@@ -14,9 +13,9 @@ export class ClientsComponent implements OnInit {
   clients$: Observable<Client[]>;
   currentClient$: Observable<Client>;
 
-  constructor(private store: Store<reducers.AppState>) {
-    this.clients$ = store.select(reducers.getClients);
-    this.currentClient$ = store.select(reducers.getSelectedClient);
+  constructor(private store: SocketService) {
+    this.clients$ = this.store.select('clients');
+    this.currentClient$ = this.store.select('currentClient');
   }
 
   ngOnInit() {
