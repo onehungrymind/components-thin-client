@@ -14,21 +14,13 @@ import { ProjectsListComponent } from './projects/projects-list/projects-list.co
 import { ProjectDetailsComponent } from './projects/project-details/project-details.component';
 import { ClientDetailsComponent } from './clients/client-details/client-details.component';
 import { ClientsListComponent } from './clients/clients-list/clients-list.component';
-import { ActionsService, ClientsService, ProjectsService, SocketService } from './shared/services/';
+import { ActionsService, SocketService } from './shared/services/';
 
-import { StoreModule } from '@ngrx/store';
-import { EffectsModule } from '@ngrx/effects';
-
-import { environment } from '../environments/environment';
-import { reducers, metaReducers } from './shared/reducers';
-import { ClientEffects } from './shared/effects/client.effects';
-import { ProjectEffects } from './shared/effects/projects.effects';
-import { StoreDevtoolsModule } from '@ngrx/store-devtools';
+import { DemoComponent } from './demo/demo.component';
 import { AngularFireModule } from 'angularfire2';
 import { AngularFirestoreModule } from 'angularfire2/firestore';
 import { AceEditorModule } from 'ng2-ace-editor';
-import { ThinClientComponent } from './clients/thin-client.component';
-import { DemoComponent } from './demo/demo.component';
+import { environment } from '../environments/environment';
 
 @NgModule({
   declarations: [
@@ -40,7 +32,6 @@ import { DemoComponent } from './demo/demo.component';
     ProjectDetailsComponent,
     ClientDetailsComponent,
     ClientsListComponent,
-    ThinClientComponent,
     DemoComponent
   ],
   imports: [
@@ -52,15 +43,9 @@ import { DemoComponent } from './demo/demo.component';
     AppMaterialModule,
     AngularFireModule.initializeApp(environment.firebase),
     AngularFirestoreModule,
-    StoreModule.forRoot(reducers, { metaReducers }),
-    EffectsModule.forRoot([ClientEffects, ProjectEffects]),
-    // Note that you must instrument after importing StoreModule
-    StoreDevtoolsModule.instrument({
-      maxAge: 25 //  Retains last 25 states
-    }),
     AceEditorModule
   ],
-  providers: [ActionsService, ClientsService, ProjectsService, SocketService],
+  providers: [ActionsService, SocketService],
   bootstrap: [AppComponent]
 })
 export class AppModule { }

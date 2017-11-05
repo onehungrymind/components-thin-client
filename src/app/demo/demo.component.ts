@@ -2,7 +2,7 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { ActionsService } from '../shared/services/actions.service';
-import { SocketService } from '../shared/services/socket.service';
+import { SocketService } from '../shared/services/';
 
 @Component({
   selector: 'app-demo',

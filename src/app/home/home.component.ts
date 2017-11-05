@@ -1,12 +1,10 @@
 import { Component, OnInit } from '@angular/core';
-import { Store } from '@ngrx/store';
+import { Observable } from 'rxjs/Observable';
 import { Client } from '../shared/models/client.model';
-import * as reducers from '../shared/reducers';
+import { Project } from '../shared/models/project.model';
+import { SocketService } from '../shared/services/';
 import * as ClientActions from '../shared/actions/client.actions';
 import * as ProjectActions from '../shared/actions/project.actions';
-import { Observable } from 'rxjs/Observable';
-import { Project } from '../shared/models/project.model';
-
 
 @Component({
   selector: 'app-home',
@@ -17,9 +15,9 @@ export class HomeComponent implements OnInit {
   clients$: Observable<Client[]>;
   projects$: Observable<Project[]>;
 
-  constructor(private store: Store<reducers.AppState>)  {
-    this.clients$ = store.select(reducers.getClients);
-    this.projects$ = store.select(reducers.getProjects);
+  constructor(private store: SocketService)  {
+    this.clients$ = store.select('clients');
+    this.projects$ = store.select('projects');
   }
 
   ngOnInit() {

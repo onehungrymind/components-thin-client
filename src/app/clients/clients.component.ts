@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Client } from '../shared/models/client.model';
 import * as ClientActions from '../shared/actions/client.actions';
 import { Observable } from 'rxjs/Observable';
-import { SocketService } from '../shared/services/socket.service';
+import { SocketService } from '../shared/services/';
 
 @Component({
   selector: 'app-clients',

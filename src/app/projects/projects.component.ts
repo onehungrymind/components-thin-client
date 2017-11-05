@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { Project } from '../shared/models/project.model';
 import * as ProjectActions from '../shared/actions/project.actions';
 import { Observable } from 'rxjs/Observable';
-import { SocketService } from '../shared/services/socket.service';
+import { SocketService } from '../shared/services/';
 
 @Component({
   selector: 'app-projects',
