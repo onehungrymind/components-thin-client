@@ -5,21 +5,19 @@ const http = require('http').Server(app);
 const io = require('socket.io')(http);
 const uuidv4 = require('uuid/v4');
 
+// -------------------------------------------------------------------
 // ACTIONS
+// -------------------------------------------------------------------
 const CLIENT_LOAD    = '[Client] Load';
 const CLIENT_CREATE  = '[Client] Create';
 const CLIENT_UPDATE  = '[Client] Update';
 const CLIENT_DELETE  = '[Client] Delete';
 const CLIENT_SELECT  = '[Client] Select';
 const CLIENT_CLEAR   = '[Client] Clear';
-const PROJECT_LOAD    = '[Project] Load';
-const PROJECT_CREATE  = '[Project] Create';
-const PROJECT_UPDATE  = '[Project] Update';
-const PROJECT_DELETE  = '[Project] Delete';
-const PROJECT_SELECT  = '[Project] Select';
-const PROJECT_CLEAR   = '[Project] Clear';
 
+// -------------------------------------------------------------------
 // STORE
+// -------------------------------------------------------------------
 const clients = [
   {
     id: '1',
@@ -37,30 +35,12 @@ const clients = [
 
 const newClient = { id: null, firstName: '', lastName: '', company: '' };
 
-const projects = [
-  {
-    id: '1',
-    name: 'First Project',
-    description: 'Cash cow!',
-    client_id: '1'
-  },
-  {
-    id: '2',
-    name: 'Second Project',
-    description: 'Gravy train!',
-    client_id: '2'
-  }
-];
-
-const newProject = { id: null, name: '', description: '' };
-
 const initialState = {
   clients,
-  currentClient: newClient,
-  projects,
-  currentProject: newProject
+  currentClient: newClient
 };
 
+// TODO Clean this up
 const initialHistoryState = {
   past: [],
   present: {},
@@ -82,7 +62,9 @@ class Store {
   }
 }
 
+// -------------------------------------------------------------------
 // REDUCER
+// -------------------------------------------------------------------
 const selectClient = (state, payload) => {
   return {
     clients: state.clients,
@@ -121,44 +103,6 @@ const deleteClient = (state, payload) => {
   };
 };
 
-const selectProject = (state, payload) => {
-  return {
-    projects: state.projects,
-    currentProject: payload
-  };
-};
-
-const clearProject = (state, payload) => {
-  return {
-    projects: state.projects,
-    currentProject: newProject
-  };
-};
-
-const createProject = (state, payload) => {
-  const newProject = Object.assign({}, payload, {id: uuidv4()});
-  return {
-    projects: [...state.projects, newProject],
-    currentProject: state.currentProject
-  };
-};
-
-const updateProject = (state, payload) => {
-  return {
-    projects: state.projects.map(project => {
-      return project.id === payload.id ? Object.assign({}, project, payload) : project;
-    }),
-    currentProject: state.currentProject
-  };
-};
-
-const deleteProject = (state, payload) => {
-  return {
-    projects: state.projects.filter(project => project.id !== payload.id),
-    currentProject: state.currentProject
-  };
-};
-
 const reducer = (state = initialState, {type, payload}) => {
   switch (type) {
     case CLIENT_LOAD:
@@ -173,23 +117,16 @@ const reducer = (state = initialState, {type, payload}) => {
       return deleteClient(state, payload);
     case CLIENT_CLEAR:
       return clearClient(state, payload);
-    case PROJECT_LOAD:
-      return state;
-    case PROJECT_SELECT:
-      return selectProject(state, payload);
-    case PROJECT_CREATE:
-      return createProject(state, payload);
-    case PROJECT_UPDATE:
-      return updateProject(state, payload);
-    case PROJECT_DELETE:
-      return deleteProject(state, payload);
-    case PROJECT_CLEAR:
-      return clearProject(state, payload);
     default:
       return state;
   }
 };
 
+/*
+TODO This needs work
+- It is not a true meta reducer and so the way it is getting initialized is odd
+- Will get an index out of range error
+*/
 const undoable = function(reducer, initialState) {
   // Call the reducer with empty action to populate the initial state
   const initialHistoryState = {
@@ -220,7 +157,6 @@ const undoable = function(reducer, initialState) {
           future: newFuture
         };
       default:
-        console.log('default', action);
         // Delegate handling the action to the passed reducer
         const newPresent = reducer(present, action);
         if (present === newPresent) {
@@ -235,7 +171,9 @@ const undoable = function(reducer, initialState) {
   };
 };
 
+// -------------------------------------------------------------------
 // SOCKET
+// -------------------------------------------------------------------
 io.on('connection', (socket) => {
   console.log('user connected');
 

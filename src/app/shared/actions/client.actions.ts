@@ -12,49 +12,41 @@ export const CLEAR = '[Client] Clear';
 
 export class LoadAction implements Action {
   readonly type = LOAD;
-
   constructor(public payload: any = null) { }
 }
 
 export class LoadActionSuccess implements Action {
   readonly type = LOAD_SUCCESS;
-
   constructor(public payload: Client[]) { }
 }
 
 export class CreateAction implements Action {
   readonly type = CREATE;
-
   constructor(public payload: Client) { }
 }
 
 export class CreateActionFailed implements Action {
   readonly type = CREATE_FAILED;
-
   constructor(public payload: any) { }
 }
 
 export class UpdateAction implements Action {
   readonly type = UPDATE;
-
   constructor(public payload: Client) { }
 }
 
 export class DeleteAction implements Action {
   readonly type = DELETE;
-
   constructor(public payload: string) { }
 }
 
 export class SelectAction implements Action {
   readonly type = SELECT;
-
   constructor(public payload: Client) { }
 }
 
 export class ClearAction implements Action {
   readonly type = CLEAR;
-
   constructor(public payload: any = null) { }
 }
 
