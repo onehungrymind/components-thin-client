@@ -10,7 +10,7 @@
         *ngFor="let client of clients"
         (click)="selected.emit(client)">
         <h3 mat-line>{{client.firstName}} {{client.lastName}}</h3>
-        <button *ngIf="!readOnly" mat-icon-button (click)="deleted.emit(client);$event.stopImmediatePropagation();">
+        <button *ngIf="!readOnly" mat-icon-button (click)="deleted.emit(client);$event.stopPropagation();">
           <mat-icon>close</mat-icon>
         </button>
         <p mat-line>

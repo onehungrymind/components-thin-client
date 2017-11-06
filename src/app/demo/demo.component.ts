@@ -1,8 +1,7 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
 import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
-import { ActionsService } from '../shared/services/actions.service';
-import { SocketService } from '../shared/services/';
+import { ActionsService, Store } from '../shared/services/';
 
 @Component({
   selector: 'app-demo',
@@ -31,7 +30,7 @@ export class DemoComponent implements OnInit {
 
   constructor(
     private actionsService: ActionsService,
-    private store: SocketService,
+    private store: Store,
     private afs: AngularFirestore
   ) {
     this.remoteActions = afs.collection('actions');

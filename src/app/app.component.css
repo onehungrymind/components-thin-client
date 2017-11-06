@@ -19,7 +19,7 @@ mat-toolbar {
 
 mat-sidenav {
   box-shadow: 3px 0 6px rgba(0, 0, 0, .24);
-  width: 400px;
+  width: 50%;
 }
 
 mat-card {
