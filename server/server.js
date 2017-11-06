@@ -122,6 +122,34 @@ const reducer = (state = initialState, {type, payload}) => {
   }
 };
 
+const store = new Store(reducer, initialState);
+
+// -------------------------------------------------------------------
+// SOCKET
+// -------------------------------------------------------------------
+io.on('connection', (socket) => {
+  console.log('user connected');
+  io.emit('update', store.getState());
+
+  socket.on('dispatch', action => {
+    store.dispatch(action);
+    io.emit('update', store.getState());
+  });
+
+  socket.on('disconnect', function () {
+    console.log('user disconnected');
+  });
+});
+
+http.listen(5000, () => {
+  console.log('started on port 5000');
+});
+
+// -------------------------------------------------------------------
+// HISTORY
+// -------------------------------------------------------------------
+// const store = new Store(undoable(reducer, initialState));
+
 /*
 TODO This needs work
 - It is not a true meta reducer and so the way it is getting initialized is odd
@@ -170,27 +198,3 @@ const undoable = function(reducer, initialState) {
     }
   };
 };
-
-// -------------------------------------------------------------------
-// SOCKET
-// -------------------------------------------------------------------
-// const store = new Store(undoable(reducer, initialState));
-const store = new Store(reducer, initialState);
-
-io.on('connection', (socket) => {
-  console.log('user connected');
-  io.emit('update', store.getState());
-
-  socket.on('dispatch', action => {
-    store.dispatch(action);
-    io.emit('update', store.getState());
-  });
-
-  socket.on('disconnect', function () {
-    console.log('user disconnected');
-  });
-});
-
-http.listen(5000, () => {
-  console.log('started on port 5000');
-});
