@@ -54,7 +54,7 @@ class Store {
   }
 
   getState() {
-    return this.state.present;
+    return this.state;
   }
 
   dispatch(action) {
@@ -174,7 +174,8 @@ const undoable = function(reducer, initialState) {
 // -------------------------------------------------------------------
 // SOCKET
 // -------------------------------------------------------------------
-const store = new Store(undoable(reducer, initialState));
+// const store = new Store(undoable(reducer, initialState));
+const store = new Store(reducer, initialState);
 
 io.on('connection', (socket) => {
   console.log('user connected');
