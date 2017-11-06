@@ -3,6 +3,12 @@ import { Observable } from 'rxjs/Observable';
 import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
 import { ActionsService, Store } from '../shared/services/';
 
+import 'brace/index';
+import 'brace/theme/eclipse';
+import 'brace/mode/json';
+import 'brace/ext/language_tools.js';
+declare const ace: any;
+
 @Component({
   selector: 'app-demo',
   templateUrl: './demo.component.html',
