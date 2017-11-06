@@ -3,7 +3,9 @@
   <mat-step label="MANUAL STEP">
     <h1>STEP 01: Manual Step</h1>
     <mat-list>
-      <mat-list-item *ngFor="let action of actions; index as i" [class.active]="index == i">{{action | json}}</mat-list-item>
+      <mat-list-item class="code" *ngFor="let action of actions; index as i" [class.active]="index == i">
+        {{action | json}}
+      </mat-list-item>
     </mat-list>
     <button mat-raised-button color="primary" (click)="step()">STEP</button>
   </mat-step>
@@ -19,7 +21,7 @@
     </mat-slider>
 
     <mat-list>
-      <mat-list-item *ngFor="let action of actions; index as i" [class.active]="index == i">
+      <mat-list-item class="code" *ngFor="let action of actions; index as i" [class.active]="index == i">
         {{action | json}}
       </mat-list-item>
     </mat-list>

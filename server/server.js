@@ -174,10 +174,11 @@ const undoable = function(reducer, initialState) {
 // -------------------------------------------------------------------
 // SOCKET
 // -------------------------------------------------------------------
+const store = new Store(undoable(reducer, initialState));
+
 io.on('connection', (socket) => {
   console.log('user connected');
-
-  const store = new Store(undoable(reducer, initialState));
+  io.emit('update', store.getState());
 
   socket.on('dispatch', action => {
     store.dispatch(action);
