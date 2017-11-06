@@ -1,5 +1,5 @@
 import * as io from 'socket.io-client';
-import { Subject } from 'rxjs/Subject';
+import { BehaviorSubject } from 'rxjs/BehaviorSubject';
 
 const BASE_URL = 'http://localhost:5000';
 
@@ -13,7 +13,7 @@ export class SocketService {
   }
 
   select(key) {
-    this.subjects[key] = new Subject();
+    this.subjects[key] = new BehaviorSubject(null);
     return this.subjects[key].asObservable();
   }
 
