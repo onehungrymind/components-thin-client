@@ -40,13 +40,6 @@ const initialState = {
   currentClient: newClient
 };
 
-// TODO Clean this up
-const initialHistoryState = {
-  past: [],
-  present: {},
-  future: []
-};
-
 class Store {
   constructor(reducer, initialHistoryState ) {
     this.reducer = reducer;
@@ -148,7 +141,15 @@ http.listen(5000, () => {
 // -------------------------------------------------------------------
 // HISTORY
 // -------------------------------------------------------------------
+
 // const store = new Store(undoable(reducer, initialState));
+
+// TODO Clean this up
+const initialHistoryState = {
+  past: [],
+  present: {},
+  future: []
+};
 
 /*
 TODO This needs work
