@@ -41,13 +41,13 @@ const initialState = {
 };
 
 class Store {
-  constructor(reducer, initialHistoryState ) {
+  constructor(reducer) {
     this.reducer = reducer;
-    this.state = initialHistoryState;
+    this.state = reducer(undefined, { type: ''});
   }
 
   getState() {
-    return this.state;
+    return this.state.present;
   }
 
   dispatch(action) {
@@ -115,8 +115,6 @@ const reducer = (state = initialState, {type, payload}) => {
   }
 };
 
-const store = new Store(reducer, initialState);
-
 // -------------------------------------------------------------------
 // SOCKET
 // -------------------------------------------------------------------
@@ -142,30 +140,20 @@ http.listen(5000, () => {
 // HISTORY
 // -------------------------------------------------------------------
 
-// const store = new Store(undoable(reducer, initialState));
-
-// TODO Clean this up
-const initialHistoryState = {
-  past: [],
-  present: {},
-  future: []
-};
-
 /*
 TODO This needs work
-- It is not a true meta reducer and so the way it is getting initialized is odd
 - Will get an index out of range error
 */
-const undoable = function(reducer, initialState) {
+const undoable = function (reducer) {
   // Call the reducer with empty action to populate the initial state
-  const initialHistoryState = {
+  const initialState = {
     past: [],
-    present: reducer(initialState, { type: ''}),
+    present: reducer(undefined, { type: ''}),
     future: []
   };
 
   // Return a reducer that handles undo and redo
-  return function (state = initialHistoryState, action) {
+  return function (state = initialState, action) {
     const { past, present, future } = state;
 
     switch (action.type) {
@@ -186,8 +174,10 @@ const undoable = function(reducer, initialState) {
           future: newFuture
         };
       default:
+        console.log('default', action);
         // Delegate handling the action to the passed reducer
         const newPresent = reducer(present, action);
+        console.log(newPresent);
         if (present === newPresent) {
           return state;
         }
@@ -199,3 +189,5 @@ const undoable = function(reducer, initialState) {
     }
   };
 };
+
+const store = new Store(undoable(reducer));
