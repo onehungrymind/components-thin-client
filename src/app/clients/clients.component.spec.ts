@@ -6,6 +6,8 @@ import { ClientDetailsComponent } from './client-details/client-details.componen
 import { Store } from '@ngrx/store';
 import { AppMaterialModule } from '../app-material.module';
 import { FormsModule } from '@angular/forms';
+import { SocketService } from '../shared/services/socket.service';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 describe('ClientsComponents', () => {
   let component: ClientsComponent;
@@ -14,8 +16,8 @@ describe('ClientsComponents', () => {
   beforeEach(async(() => {
     TestBed.configureTestingModule({
       declarations: [ ClientsComponent, ClientsListComponent, ClientDetailsComponent ],
-      imports: [AppMaterialModule, FormsModule],
-      providers: [Store]
+      imports: [AppMaterialModule, FormsModule, BrowserAnimationsModule],
+      providers: [Store, SocketService]
     })
     .compileComponents();
   }));
