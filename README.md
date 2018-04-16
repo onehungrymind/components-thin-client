@@ -1,10 +1,19 @@
 # ComponentsThinClient
+This project demonstrates how using Redux essentially turns an application into a thin client.
 
-This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 1.5.0-beta.4.
+![image](https://user-images.githubusercontent.com/1544557/38834610-cbb84af6-417d-11e8-9cb6-64c3a364af6b.png)
 
-## Development server
+## Prerequisites
+* Latest version of [NodeJS and NPM](https://nodejs.org/en/)
+* Latest version of the Angular CLI installed globally (`npm i -g @angular/cli@latest`)
 
-Run `ng serve` for a dev server. Navigate to `http://localhost:4200/`. The app will automatically reload if you change any of the source files.
+## Getting Started
+```
+git clone https://github.com/onehungrymind/components-thin-client.git
+cd components-thin-client
+npm i
+npm start
+```
 
 ## Code scaffolding
 
