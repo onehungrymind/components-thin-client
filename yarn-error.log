@@ -1,0 +1,105 @@
+Arguments: 
+  /Users/briebug/.nvm/versions/node/v12.18.3/bin/node /usr/local/Cellar/yarn/1.22.4/libexec/bin/yarn.js add grcp
+
+PATH: 
+  /Users/briebug/.nvm/versions/node/v12.18.3/bin:/usr/local/bin:/usr/bin:/bin:/usr/sbin:/sbin
+
+Yarn version: 
+  1.22.4
+
+Node version: 
+  12.18.3
+
+Platform: 
+  darwin x64
+
+Trace: 
+  Error: https://registry.yarnpkg.com/grcp: Not found
+      at Request.params.callback [as _callback] (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:66987:18)
+      at Request.self.callback (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:140748:22)
+      at Request.emit (events.js:315:20)
+      at Request.<anonymous> (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:141720:10)
+      at Request.emit (events.js:315:20)
+      at IncomingMessage.<anonymous> (/usr/local/Cellar/yarn/1.22.4/libexec/lib/cli.js:141642:12)
+      at Object.onceWrapper (events.js:421:28)
+      at IncomingMessage.emit (events.js:327:22)
+      at endReadableNT (_stream_readable.js:1220:12)
+      at processTicksAndRejections (internal/process/task_queues.js:84:21)
+
+npm manifest: 
+  {
+    "name": "components-thin-client",
+    "version": "0.0.0",
+    "license": "MIT",
+    "scripts": {
+      "ng": "ng",
+      "start": "concurrently \"npm run socketio\" \"npm run server\" \"ng serve\"",
+      "server": "json-server server/db.json --watch",
+      "socketio": "node ./server/server.js",
+      "build": "ng build",
+      "test": "ng test -sm=false",
+      "lint": "ng lint",
+      "e2e": "ng e2e"
+    },
+    "private": true,
+    "dependencies": {
+      "@angular/animations": "10.0.8",
+      "@angular/cdk": "^10.1.2",
+      "@angular/common": "10.0.8",
+      "@angular/compiler": "10.0.8",
+      "@angular/core": "10.0.8",
+      "@angular/flex-layout": "^5.0.0-beta.14",
+      "@angular/forms": "10.0.8",
+      "@angular/http": "7.2.16",
+      "@angular/platform-browser": "10.0.8",
+      "@angular/platform-browser-dynamic": "10.0.8",
+      "@angular/router": "10.0.8",
+      "@ngrx/effects": "^9.2.0",
+      "@ngrx/store": "^9.2.0",
+      "@ngrx/store-devtools": "^9.2.0",
+      "angularfire2": "^5.0.0-rc.5-next",
+      "brace": "^0.11.1",
+      "core-js": "^2.5.5",
+      "firebase": "^4.12.1",
+      "hammerjs": "^2.0.8",
+      "ng2-ace-editor": "^0.3.4",
+      "ngrx-store-freeze": "^0.2.2",
+      "reselect": "^3.0.1",
+      "rxjs": "^6.6.2",
+      "socket.io-client": "^2.1.0",
+      "tslib": "^1.9.0",
+      "zone.js": "~0.10.3"
+    },
+    "devDependencies": {
+      "@angular-devkit/build-angular": "~0.1000.5",
+      "@angular/cli": "10.0.5",
+      "@angular/compiler-cli": "10.0.8",
+      "@angular/language-service": "10.0.8",
+      "@types/jasmine": "~2.8.6",
+      "@types/jasminewd2": "~2.0.2",
+      "@types/node": "^9.6.5",
+      "@types/socket.io-client": "^1.4.32",
+      "codelyzer": "^6.0.0",
+      "concurrently": "^5.2.0",
+      "jasmine-core": "~3.1.0",
+      "jasmine-spec-reporter": "~4.2.1",
+      "json-server": "^0.12.1",
+      "karma": "~2.0.0",
+      "karma-chrome-launcher": "~2.2.0",
+      "karma-cli": "~1.0.1",
+      "karma-coverage-istanbul-reporter": "^1.4.2",
+      "karma-jasmine": "^1.1.1",
+      "karma-jasmine-html-reporter": "^1.0.0",
+      "protractor": "~5.3.1",
+      "socket.io": "^2.3.0",
+      "ts-node": "~8.10.2",
+      "tslint": "~5.9.1",
+      "typescript": "3.9.7"
+    }
+  }
+
+yarn manifest: 
+  No manifest
+
+Lockfile: 
+  No lockfile

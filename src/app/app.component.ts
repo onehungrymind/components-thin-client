@@ -1,10 +1,5 @@
 import { Component } from '@angular/core';
 
-import 'rxjs/add/observable/from';
-import 'rxjs/add/observable/interval';
-import 'rxjs/add/operator/zip';
-import 'rxjs/add/operator/skip';
-
 @Component({
   selector: 'app-root',
   templateUrl: './app.component.html',
