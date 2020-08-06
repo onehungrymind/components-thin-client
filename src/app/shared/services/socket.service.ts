@@ -1,5 +1,5 @@
 import * as io from 'socket.io-client';
-import { BehaviorSubject } from 'rxjs/BehaviorSubject';
+import { BehaviorSubject } from 'rxjs';
 
 const BASE_URL = 'http://localhost:5000';
 
