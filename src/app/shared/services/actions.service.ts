@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
+import { HttpClient } from '@angular/common/http';
+import { map } from 'rxjs/operators';
 
-import 'rxjs/add/operator/map';
 
 const BASE_URL = 'http://localhost:3000';
 
 @Injectable()
 export class ActionsService {
-  constructor(private http: Http) {}
+  constructor(private http: HttpClient) {}
 
   single() {
-    return this.http.get(`${BASE_URL}/action`)
-      .map(res => res.json());
+    return this.http.get(`${BASE_URL}/action`);
+      // .pipe(
+      //   map(res => res.json())
+      // );
+      // ^possible not needed in newer versions
   }
 
   all() {
     return this.http.get(`${BASE_URL}/actions`)
-      .map(res => res.json());
+      // .pipe(
+      //   map(res => res.json())
+      // );
+      // ^possible not needed in newer versions
   }
 }
 

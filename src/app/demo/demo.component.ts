@@ -1,7 +1,8 @@
 import { Component, OnInit, ViewChild } from '@angular/core';
-import { Observable } from 'rxjs/Observable';
-import { AngularFirestore, AngularFirestoreCollection } from 'angularfire2/firestore';
+import { Observable, from, interval } from 'rxjs';
+import { AngularFirestore, AngularFirestoreCollection } from '@angular/fire/firestore';
 import { ActionsService, Store } from '../shared/services/';
+import { skip, zip } from 'rxjs/operators';
 
 import 'brace/index';
 import 'brace/theme/eclipse';
@@ -45,7 +46,9 @@ export class DemoComponent implements OnInit {
   ngOnInit() {
     // REMOTE DISPATCH
     this.remoteActions.valueChanges()
-      .skip(1)
+      .pipe(
+        skip(1)
+      )
       .subscribe((actions: any) => {
         this.store.dispatch(actions[0]);
       });
@@ -85,15 +88,24 @@ export class DemoComponent implements OnInit {
   // STEP O2: Manual cycle
   cycle() {
     const that = this;
-    const result = Observable
-      .from(this.actions)
-      .zip(Observable.interval(this.timerInterval), (a, b) => {
+    const result = from(this.actions)
+    .pipe(
+      zip( interval(this.timerInterval), (a, b) => {
         // THIS IS NAUGHTY!
         this.index = b;
         // THIS IS AWESOME!
         return a;
       })
-    ;
+    );
+    // Old Code, temporary save
+    // const result = Observable.from(this.actions)
+    //   .zip(Observable.interval(this.timerInterval), (a, b) => {
+    //     // THIS IS NAUGHTY!
+    //     this.index = b;
+    //     // THIS IS AWESOME!
+    //     return a;
+    //   })
+    // ;
 
     result.subscribe(action => this.store.dispatch(action));
   }
@@ -118,10 +130,15 @@ export class DemoComponent implements OnInit {
 
   dispatchCycle(rawActions) {
     const actions = JSON.parse(rawActions);
-    const result = Observable
-      .from(actions)
-      .zip(Observable.interval(this.timerInterval), (a, b) => a)
-    ;
+    const result = from(this.actions)
+    .pipe(
+      zip( interval(this.timerInterval), (a, b) => a)
+    );
+
+    // const result = Observable
+    //   .from(actions)
+    //   .zip(Observable.interval(this.timerInterval), (a, b) => a)
+    // ;
 
     result.subscribe((action: any) => this.store.dispatch(action));
   }
