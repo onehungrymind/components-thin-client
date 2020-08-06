@@ -97,15 +97,6 @@ export class DemoComponent implements OnInit {
         return a;
       })
     );
-    // Old Code, temporary save
-    // const result = Observable.from(this.actions)
-    //   .zip(Observable.interval(this.timerInterval), (a, b) => {
-    //     // THIS IS NAUGHTY!
-    //     this.index = b;
-    //     // THIS IS AWESOME!
-    //     return a;
-    //   })
-    // ;
 
     result.subscribe(action => this.store.dispatch(action));
   }
@@ -134,11 +125,6 @@ export class DemoComponent implements OnInit {
     .pipe(
       zip( interval(this.timerInterval), (a, b) => a)
     );
-
-    // const result = Observable
-    //   .from(actions)
-    //   .zip(Observable.interval(this.timerInterval), (a, b) => a)
-    // ;
 
     result.subscribe((action: any) => this.store.dispatch(action));
   }

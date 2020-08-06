@@ -11,18 +11,10 @@ export class ActionsService {
 
   single() {
     return this.http.get(`${BASE_URL}/action`);
-      // .pipe(
-      //   map(res => res.json())
-      // );
-      // ^possible not needed in newer versions
   }
 
   all() {
-    return this.http.get(`${BASE_URL}/actions`)
-      // .pipe(
-      //   map(res => res.json())
-      // );
-      // ^possible not needed in newer versions
+    return this.http.get(`${BASE_URL}/actions`);
   }
 }
 
